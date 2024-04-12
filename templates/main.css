@@ -1,30 +1,35 @@
-
 body {
   font-family: Arial, sans-serif;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
+
 h1 {
   font-size: 2rem;
   margin-bottom: 20px;
 }
+
 textarea {
   width: 100%;
   height: 200px;
   margin-bottom: 20px;
   padding: 10px;
-  font-size: 1rem;
+  font-size: 16px;
+  box-sizing: border-box;
 }
+
 label {
   display: block;
   margin-bottom: 10px;
 }
+
 select {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
 }
+
 button {
   background-color: #4CAF50;
   color: white;
@@ -35,6 +40,101 @@ button {
   font-size: 1rem;
   margin-top: 20px;
 }
+
 button:hover {
   background-color: #3e8e41;
 }
+
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 1440px) {
+  /* large desktops and some laptops */
+}
+
+@media (max-width: 1270px) {
+  /*  desktops  */
+}
+
+@media (max-width: 1024px) {
+  /* tablets (landscape) and some laptops */
+}
+
+@media (max-width: 900px) {
+  /* smaller tablets and larger phones */ 
+} 
+
+@media (max-width: 876px) {
+    
+}
+
+@media (max-width: 768px) {
+  /* tablets (portrait)  */
+}
+
+@media (max-width: 600px) { 
+  
+  /* larger phones (landscape) */
+}
+
+@media (max-width: 480px) {
+  
+  /* smaller phones (landscape) */
+}
+
+@media (max-width: 400px) {
+  
+}
+
+@media (max-width: 390px) {
+
+}
+
+@media (max-width: 320px) {
+  /* smallest phones (portrait) */
+} 
