@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for, render_template, request
 import requests
 
 #change based on saved directory
-path = r'D:\UPD\cs173\SkyMast'
+path = r'D:\Local_UPD\CS 173\SkyMast'
 
 app = Flask(__name__, static_folder = path)
 
