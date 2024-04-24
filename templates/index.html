@@ -2,8 +2,8 @@
 
 {% block head %}
   <title>SkyMast</title>
-  <link rel="icon" type="image/png" href="{{url_for('static', filename='./templates/icon.png')}}">
-  <link rel="stylesheet" href="{{url_for('static', filename='./templates/main.css')}}">
+  <link rel="icon" type="image/png" href="{{url_for('static', filename='icon.png')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
 {% endblock %}
 
 {% block body %}
@@ -13,8 +13,8 @@
     <label for="post-text">Post Text:</label>
     <textarea id="post-text" name="post-text" ></textarea>
     <div id="character-counter">300</div>
-  <img src="{{url_for('static', filename='./templates/photo_icon.png')}}" alt="Photo Icon" style="width: 20px; height: 20px; margin-top: 0px;">
-  <img src="{{url_for('static', filename='./templates/emoji_icon.png')}}" alt="Emoji Icon" style="width: 20px; height: 20px; margin-top: 0px;">
+  <img src="{{url_for('static', filename='photo_icon.png')}}" alt="Photo Icon" style="width: 20px; height: 20px; margin-top: 0px;">
+  <img src="{{url_for('static', filename='emoji_icon.png')}}" alt="Emoji Icon" style="width: 20px; height: 20px; margin-top: 0px;">
     <label for="post-visibility">Post Visibility:</label>
     <select id="post-visibility" name="post-visibility" required>
       <option value="public">Public</option>

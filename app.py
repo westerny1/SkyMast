@@ -3,11 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from mastodon import Mastodon
 from datetime import datetime
 from atproto import Client
+import os
 
-#change based on saved directory
-path = r'C:\Users\Admin\Downloads\SkyMast-main'
-
-app = Flask(__name__, static_folder = path)
+app = Flask(__name__, static_folder='static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///skymast.db'
 db = SQLAlchemy(app)
 
