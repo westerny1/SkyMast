@@ -9,11 +9,14 @@
 {% block body %}
   <h1>Welcome to SkyMast</h1>
   <!-- Text Area -->
-  <form id="crosspost-form" action="/" method="POST">
+  <form id="crosspost-form" action="/cross_post" method="POST" enctype="multipart/form-data">
     <label for="post-text">Post Text:</label>
     <textarea id="post-text" name="post-text" ></textarea>
     <div id="character-counter">300</div>
-  <img src="{{url_for('static', filename='photo_icon.png')}}" alt="Photo Icon" style="width: 20px; height: 20px; margin-top: 0px;">
+  <!-- <button id="upload-img", name="upload-img", type="button">
+    <img src="{{url_for('static', filename='photo_icon.png')}}" alt="Photo Icon" style="width: 20px; height: 20px; margin-top: 0px;">
+  </button> -->
+  <input type="file" name="img" multiple/>
   <img src="{{url_for('static', filename='emoji_icon.png')}}" alt="Emoji Icon" style="width: 20px; height: 20px; margin-top: 0px;">
     <label for="post-visibility">Post Visibility:</label>
     <select id="post-visibility" name="post-visibility" required>
@@ -26,30 +29,32 @@
       <option value="mastodon">Mastodon</option>
       <option value="bluesky">Bluesky</option>
       <option value="both">Both</option>
-    </select>
+    </select>  
     <button type="submit">Crosspost</button>
     <br>
-
-    <!-- Table of Accounts -->
-    <table>
+  </form>
+  <!-- Table of Accounts -->
+  <form id="accounts" action="/accounts" method="POST">
+  <table>
+    <tr>
+      <th>Accounts</th>
+      <th>Website</th>
+      <th>Actions</th>
+    </tr>
+    {% for account in account_list %}
       <tr>
-        <th>Accounts</th>
-        <th>Website</th>
-        <th>Actions</th>
+        <td>{{  account.db_email  }}</td>
+        <td>{{  account.db_website  }}</td>
+        <td>
+          <!-- Todo: Delete Account -->
+          <button id="del_account{{ account.id }}", name="del_account{{ account.id }}", type="submit">Delete</button>
+        </td>
       </tr>
-      {% for account in account_list %}
-        <tr>
-          <td>{{  account.db_email  }}</td>
-          <td>{{  account.db_website  }}</td>
-          <td>
-            <!-- Todo: Delete Account -->
-            <button id="delete_account">Delete</button>
-          </td>
-        </tr>
-      {% endfor %}
-    </table>
-    
-    <!-- Login Area -->
+    {% endfor %}
+  </table>
+  </form>
+  <!-- Login Area -->
+  <form id="add_account" action="/add_account" method="POST">
     <label for="email">Email:</label>
     <input id="email" name="email" type="text"  />
     <label for="password">Password:</label>
@@ -84,5 +89,14 @@
         characterCounter.style.color = "black";
       }
     });
+  </script>
+
+  <script>
+    function upload_img() {
+      fetch('/upload_img')
+        .then(response => response.json()) 
+        .then(data => console.log(data)) 
+        .catch(error => console.error(error));
+    }
   </script>
 {% endblock %}
