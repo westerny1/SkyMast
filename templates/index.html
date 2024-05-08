@@ -57,13 +57,13 @@
                     {{ account.db_email }}
                 </span>
                 
-                <button id="del_account{{ account.id }}", name="del_account{{ account.id }}", type="submit">Delete</button>
-               
-                <!-- <img id="img_del_account" src="static/delete.svg" alt="Delete" style="cursor: pointer;"> -->
+             
 
                 <span class="toggle-btn">
                     <img src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
                 </span>
+                <button id="del_account{{ account.id }}" name="del_account{{ account.id }}" type="submit" style="display: flex; justify-content: center; align-items: center; background: url('static/delete.svg') no-repeat center center; background-size: contain; border: none; width: 21px; height: 21px; cursor: pointer; margin: 15px 10px;">
+                </button>
             </div>
             <ul class="acct-settings">
                 <li class="setting" onclick="toggleIconPub()">
