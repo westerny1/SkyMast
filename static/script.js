@@ -54,6 +54,42 @@ function validated(element){
 }
 
 
+//ACCOUNT TOGGLE BUTTONS
+
+const accountBtn = document.querySelector(".account-btn"),
+      settings = document.querySelector(".setting");
+      
+accountBtn.addEventListener("click", () => {
+  accountBtn.classList.toggle("open");
+})
+
+function toggleIconAcct() {
+  const toggleButton = document.querySelector(".toggle-btn img");
+  if (toggleButton.src.match('static/toggle-off.svg')) {
+    toggleButton.src = "static/toggle-on.svg";
+  } else {
+    toggleButton.src = "static/toggle-off.svg";
+  }
+}
+
+function toggleIconPub() {
+  const toggleButton = document.querySelector(".setting-togglePub img");
+  if (toggleButton.src.match('static/toggle-off.svg')) {
+    toggleButton.src = "static/toggle-on.svg";
+  } else {
+    toggleButton.src = "static/toggle-off.svg";
+  }
+}
+
+function toggleIconRep() {
+  const toggleButton = document.querySelector(".setting-toggleRep img");
+  if (toggleButton.src.match('static/toggle-off.svg')) {
+    toggleButton.src = "static/toggle-on.svg";
+  } else {
+    toggleButton.src = "static/toggle-off.svg";
+  }
+}
+
 
 //PLUS BUTTON
 // Get the button and login form elements
