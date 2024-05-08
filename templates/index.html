@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% block head %}
     <title>SkyMast</title>
     <link rel="stylesheet" href="static/style.css">
     <link rel="stylesheet" href="stylesheet2.css">
     <link rel="stylesheet" href="stylesheet3.css">
     <link rel="stylesheet" href="stylesheet4.css">
-<link type="text/css" rel="stylesheet" href="css/style.css"/>
-</head>
-<body>
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+{% endblock %}
+
+{% block body %}
     <header>
         <h1>Welcome to SkyMast</h1>
     </header>
-    <form id="crosspost-form" action="/" method="POST"></form>
     <div class="wrapper">
         <div class="input-box">
             <div class="tweet-area">
@@ -28,7 +25,7 @@
                <!--   <span> Everyone can reply </span>-->
             <!--  </div>-->
         </div>
-        <form id="crosspost-form" action="/" method="POST">
+    <form id="crosspost-form" action="/" method="POST">
         <div class="bottom">
             <ul class="icons">
                 <li><img src="{{url_for('static', filename='photo_icon.svg')}}" alt="Photo Icon" style="width: 20px; height: 20px; margin-top: 0px;"></li>
@@ -48,29 +45,41 @@
         </div>
         <div class="container">
             <span class="container-text">Accounts</span>
-            <div class="account-btn" onclick="toggleIconAcct()">
-                <span class="account-name">
-                    <i class="fa-brands fa-mastodon"></i>
-                    A
-                </span>
-                <span class="toggle-btn">
-                    <img src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
-                </span>
-            </div>
-            <ul class="acct-settings">
-                <li class="setting" onclick="toggleIconPub()">
-                    <span class="setting-text">Public</span>
-                    <span class="setting-togglePub">
+            {% for account in account_list %}
+                <div class="account-btn" onclick="toggleIconAcct()">
+                    <span class="account-type-icon">
+
+                    <!-- Icon depends on the account's website/type -->
+                    {% if account.db_website == 'mastodon' %}
+                        <img src="static/mastodon.svg" alt="Mastodon Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                    {% else %}
+                        <img src="static/bluesky.svg" alt="Bluesky Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                    {% endif %}
+
+                    </span>
+                    <span class="account-name">
+                        <i class="fa-brands fa-mastodon"></i>
+                        {{ account.db_email }}
+                    </span>
+                    <span class="toggle-btn">
                         <img src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
                     </span>
-                </li>
-                <li class="setting" onclick="toggleIconRep()">
-                    <span class="setting-text">Allow Replies</span>
-                    <span class="setting-toggleRep">
-                        <img src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
-                    </span>
-                </li>
-            </ul>
+                </div>
+                <ul class="acct-settings">
+                    <li class="setting" onclick="toggleIconPub()">
+                        <span class="setting-text">Public</span>
+                        <span class="setting-togglePub">
+                            <img src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                        </span>
+                    </li>
+                    <li class="setting" onclick="toggleIconRep()">
+                        <span class="setting-text">Allow Replies</span>
+                        <span class="setting-toggleRep">
+                            <img src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                        </span>
+                    </li>
+                </ul>
+            {% endfor %}
         </div>
     </form>
     </div>
@@ -103,9 +112,8 @@
       </div>
     </form>
    
-<script src="static/script.js"> </script>
-<script type="text/javascript" src="js/script.js"></script>
-</body>
+    <script src="static/script.js"> </script>
+    <script type="text/javascript" src="js/script.js"></script>
+{% endblock %}
 
-</html>
 

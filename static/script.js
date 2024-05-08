@@ -59,9 +59,13 @@ function validated(element){
 const accountBtn = document.querySelector(".account-btn"),
       settings = document.querySelector(".setting");
       
-accountBtn.addEventListener("click", () => {
-  accountBtn.classList.toggle("open");
-})
+try {
+  accountBtn.addEventListener("click", () => {
+    accountBtn.classList.toggle("open");
+  });
+  } catch (error) {
+    console.error("An error occurred:", error.message);
+    }
 
 function toggleIconAcct() {
   const toggleButton = document.querySelector(".toggle-btn img");
