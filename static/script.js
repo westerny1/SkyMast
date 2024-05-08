@@ -63,9 +63,9 @@ try {
   accountBtn.addEventListener("click", () => {
     accountBtn.classList.toggle("open");
   });
-  } catch (error) {
-    console.error("An error occurred:", error.message);
-    }
+} catch (error) {
+  console.error("An error occurred:", error.message);
+}
 
 function toggleIconAcct() {
   const toggleButton = document.querySelector(".toggle-btn img");
@@ -112,4 +112,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+function copyContent () {
+  document.getElementById("post-text").value =  
+      document.getElementById("editable-text-area").innerHTML;
+  return true;
+}
+
+// function delAccount (id) {
+//   document.getElementById("del_account".concat(id)).value = 
+//       document.getElementById("img_del_account".concat(id)).innerHTML;
+//   return true;
+// }
 
