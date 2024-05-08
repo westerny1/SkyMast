@@ -39,13 +39,24 @@ body {
 .wrapper{
   background: #fff;
   max-width: 475px;
-  min-width: 475px;
-  width: 90%; /* edited */
+  min-width: 300px;
+  width: 90%; 
   border-radius: 15px;
   padding: 25px 25px 15px 25px;
-  overflow-y: auto; /* edited */
+  overflow-y: auto;
   box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
 }
+
+/*.wrapper{
+  background: #fff;
+  max-width: 475px;
+  min-width: 475px;
+  width: 90%; 
+  border-radius: 15px;
+  padding: 25px 25px 15px 25px;
+  overflow-y: auto;
+  box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+}*/
 .input-box{
   padding-top: 10px;
   border-bottom: 1px solid #e6e6e6;
@@ -435,6 +446,9 @@ input[type="submit"]:hover{
 }
 
 
+/*delete*/
+
+
 /* Media Queries for Responsiveness */
 
 /* large desktops and some laptops (1440px and above) */
@@ -578,12 +592,13 @@ input[type="submit"]:hover{
 @media (max-width: 600px) {
 
   .wrapper {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 0 5px;
+    width: 90%; /* Adjusted to a percentage for smaller screens */
+    max-width: none; /* Remove maximum width */
   }
 
 }
+
+
 
 /* smaller phones (landscape) (480px - 599px) */
 /* edited */
