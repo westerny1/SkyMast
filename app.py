@@ -43,7 +43,7 @@ def cross_post():
 
         if (post_text != "" or imglist != []) and "post-to" in request.form:
             img_bytes_list = []
-            if imglist != []:     
+            if imglist[0].filename != '':     
                 for img in imglist:
                     img.save(os.path.join(app.config['UPLOAD_FOLDER'], img.filename))
                     with open(os.getcwd()+'\\temp_img\\'+img.filename, "rb") as f:
@@ -72,16 +72,16 @@ def cross_post():
                         # posting
                         mastodon = Mastodon(access_token = 'pytooter_usercred.secret')
                         
-                        if imglist != []:
+                        if imglist[0].filename != '':
                             mastodon.status_post(post_text, media_ids=[mastodon.media_post(os.getcwd()+'\\temp_img\\'+img.filename) for img in imglist])
                         elif post_text != "":
                             mastodon.toot(post_text)
                         else:
-                            return 'There was an issue in posting in mastodon 1'
+                            return 'There was an issue in posting in mastodon'
                         print('posted text in mastodon')
 
                     except:
-                        return 'There was an issue in posting in mastodon 2'
+                        return 'There was an issue in posting in mastodon'
                 elif account.db_website == 'bluesky':
                     try:
                         # creating session
@@ -89,14 +89,9 @@ def cross_post():
                         client.login(account.db_email, account.db_password)
                         print('created session in bluesky')
 
-                        # posting 
-                        if imglist != []:
-                            embed_images = models.AppBskyEmbedImages.Main(images=[models.AppBskyEmbedImages.Image(alt='', image=client.com.atproto.repo.upload_blob(img).blob) for img in img_bytes_list])
-                            client.send_post(text=post_text, embed=embed_images)
-                        elif post_text != "":
-                            client.send_post(post_text)
-                        else:
-                            return 'There was an issue in posting in bluesky'
+                        # posting
+                        embed_images = models.AppBskyEmbedImages.Main(images=[models.AppBskyEmbedImages.Image(alt='', image=client.com.atproto.repo.upload_blob(img).blob) for img in img_bytes_list])
+                        client.send_post(text=post_text, embed=embed_images)
                     except:
                         return 'There was an issue in posting in bluesky'
                 else:
@@ -117,6 +112,26 @@ def login():
         if "mastodon_login" in request.form and email != '' and password != '':
             print("mastodon login")
             account = Accounts(db_email = email, db_password = password, db_website = "mastodon")
+            try:
+                # create an application
+                Mastodon.create_app(
+                    'skymast',
+                    api_base_url = 'https://mastodon.social',
+                    to_file = 'pytooter_clientcred.secret'
+                )
+
+                # login
+                mastodon = Mastodon(client_id = 'pytooter_clientcred.secret',)
+                mastodon.log_in(
+                    account.db_email, 
+                    account.db_password, 
+                    to_file = 'pytooter_usercred.secret'
+                )
+            except:
+                return 'Incorrect email or password. Please try again.'
+            for listed_account in Accounts.query.all():
+                if account.db_email == listed_account.db_email and account.db_website == listed_account.db_website:
+                    return 'Account already logged in.'
             db.session.add(account)
             db.session.commit()
             return redirect('/')
@@ -125,6 +140,15 @@ def login():
         elif "bluesky_login" in request.form and email != '' and password != '':
             print("bluesky login")
             account = Accounts(db_email = email, db_password = password, db_website = "bluesky")
+            try:
+                # creating session
+                client = Client(base_url='https://bsky.social')
+                client.login(account.db_email, account.db_password)
+            except:
+                return 'Incorrect email or password. Please try again.'
+            for listed_account in Accounts.query.all():
+                if account.db_email == listed_account.db_email and account.db_website == listed_account.db_website:
+                    return 'Account already logged in.'
             db.session.add(account)
             db.session.commit()
             return redirect('/')

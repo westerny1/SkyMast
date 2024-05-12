@@ -23,15 +23,31 @@
                 <div id="editable-text-area" name="editable-text-area" class="input editable" contenteditable="true"></div>
                 <div class="input readonly" contenteditable="true"></div>
             </div>
+            <img id="img-preview1" style="display:none;"/>
+            <img id="img-preview2" style="display:none;"/>
+            <img id="img-preview3" style="display:none;"/>
+            <img id="img-preview4" style="display:none;"/>
         </div>
         <textarea id="post-text" name="post-text" style="display:none;"></textarea> 
-        <input type="file" id="img" name="img" style="display: none;"/>
+        <!-- <img id="img-preview1" style="display:none;"/> -->
+        <input accept="image/png, image/jpg, image/jpeg, image/gif" type="file" id="img" name="img" style="display: none;" multiple
+            onchange="
+            document.getElementById('img-preview1').src = window.URL.createObjectURL(this.files[0]);
+            document.getElementById('img-preview1').style = 'width: 50px; height: 50px;';
+            document.getElementById('img-preview2').src = window.URL.createObjectURL(this.files[1]);
+            document.getElementById('img-preview2').style = 'width: 50px; height: 50px;';
+            document.getElementById('img-preview3').src = window.URL.createObjectURL(this.files[2]);
+            document.getElementById('img-preview3').style = 'width: 50px; height: 50px;';
+            document.getElementById('img-preview4').src = window.URL.createObjectURL(this.files[3]);
+            document.getElementById('img-preview4').style = 'width: 50px; height: 50px;';
+            "/>
         <div class="bottom">
             <label for="img">
                 <ul class="icons">
                     <li><img src="{{url_for('static', filename='photo_icon.svg')}}" alt="Photo Icon" style="width: 20px; height: 20px; margin-top: 0px;"></li>
                 </ul>
-            </label> 
+            </label>
+            
             <div class="content">
                 <span class="counter">300</span>
                 <button type="submit" id="post-to" name="post-to" > Post </button> <!-- area where the post to mastodon, post to bluesky or post to both is located-->
