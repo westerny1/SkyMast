@@ -10,7 +10,7 @@ import glob
 UPLOAD_FOLDER = 'temp_img'
 
 app = Flask(__name__, static_folder='static')
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = 'UPLOAD_FOLDER'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///skymast.db'
 db = SQLAlchemy(app)
 
@@ -30,7 +30,7 @@ with app.app_context():
 
 @app.route("/", methods=['POST', 'GET'])
 def home():
-    temp_img_to_del = glob.glob(os.getcwd()+"\\temp_img\\*")
+    temp_img_to_del = glob.glob(os.getcwd()+"\\UPLOAD_FOLDER\\*")
     for img in temp_img_to_del:
         os.remove(img)
     account_list = Accounts.query.order_by(Accounts.date_created).all()
@@ -47,7 +47,7 @@ def cross_post():
             if imglist[0].filename != '':     
                 for img in imglist[:4]:
                     img.save(os.path.join(app.config['UPLOAD_FOLDER'], img.filename))
-                    with open(os.getcwd()+'\\temp_img\\'+img.filename, "rb") as f:
+                    with open(os.path.join(os.getcwd(), 'UPLOAD_FOLDER', img.filename), "rb") as f:
                         img_bytes = f.read()
                     img_bytes_list.append(img_bytes)
             for account in Accounts.query.all():
@@ -74,7 +74,7 @@ def cross_post():
                         mastodon = Mastodon(access_token = 'pytooter_usercred.secret')
                         
                         if imglist[0].filename != '':
-                            mastodon.status_post(post_text, media_ids=[mastodon.media_post(os.getcwd()+'\\temp_img\\'+img.filename) for img in imglist[:4]])
+                            mastodon.status_post(post_text, media_ids=[mastodon.media_post(os.getcwd()+'\\UPLOAD_FOLDER\\'+img.filename) for img in imglist[:4]])
                         elif post_text != "":
                             mastodon.toot(post_text)
                         else:
