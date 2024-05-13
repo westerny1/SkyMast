@@ -251,7 +251,7 @@ body {/*EDITED*/
   margin-top: 2px;
   margin-left: 20px;
   border-radius: 8px;
-  display: none;
+  display: block; 
 }
 .account-btn.open ~ .acct-settings{
   display: block;
