@@ -67,8 +67,20 @@ try {
   console.error("An error occurred:", error.message);
 }
 
-function toggleIconAcct() {
-  const toggleButton = document.querySelector(".toggle-btn img");
+function toggleIconAcct(id) {
+  const toggleButton = document.getElementById('toggle' + id);
+  const settingsDiv = document.getElementById('settings' + id);
+  if (toggleButton.src.match('static/toggle-off.svg')) {
+    toggleButton.src = "static/toggle-on.svg";
+    settingsDiv.style.display = "block";
+  } else {
+    toggleButton.src = "static/toggle-off.svg";
+    settingsDiv.style.display = "none";
+  }
+}
+
+function toggleIconPub(id) {
+  const toggleButton = document.getElementById('togglePub' + id);
   if (toggleButton.src.match('static/toggle-off.svg')) {
     toggleButton.src = "static/toggle-on.svg";
   } else {
@@ -76,17 +88,8 @@ function toggleIconAcct() {
   }
 }
 
-function toggleIconPub() {
-  const toggleButton = document.querySelector(".setting-togglePub img");
-  if (toggleButton.src.match('static/toggle-off.svg')) {
-    toggleButton.src = "static/toggle-on.svg";
-  } else {
-    toggleButton.src = "static/toggle-off.svg";
-  }
-}
-
-function toggleIconRep() {
-  const toggleButton = document.querySelector(".setting-toggleRep img");
+function toggleIconRep(id) {
+  const toggleButton = document.getElementById('toggleRep' + id);
   if (toggleButton.src.match('static/toggle-off.svg')) {
     toggleButton.src = "static/toggle-on.svg";
   } else {
