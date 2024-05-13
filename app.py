@@ -82,11 +82,13 @@ def cross_post():
                         elif post_text != "":
                             mastodon.status_post(post_text, visibility=account.db_visibility)
                         else:
-                            return 'There was an issue in posting in mastodon'
+                            #return 'There was an issue in posting in mastodon'
+                            return render_template('error-mastodon.html')
                         print('posted text in mastodon')
 
                     except:
-                        return 'There was an issue in posting in mastodon'
+                        #return 'There was an issue in posting in mastodon'
+                        return render_template('error-mastodon.html')
                 elif account.db_website == 'bluesky':
                     try:
                         # creating session
@@ -98,7 +100,8 @@ def cross_post():
                         embed_images = models.AppBskyEmbedImages.Main(images=[models.AppBskyEmbedImages.Image(alt='', image=client.com.atproto.repo.upload_blob(img).blob) for img in img_bytes_list])
                         client.send_post(text=post_text, embed=embed_images)
                     except:
-                        return 'There was an issue in posting in bluesky'
+                        #return 'There was an issue in posting in bluesky'
+                        return render_template('error-bluesky.html')
                 else:
                     pass
             print('Done posting in both mastodon and bluesky')
@@ -135,11 +138,13 @@ def login():
 
                 # account.db_username = mastodon.account_verify_credentials()["username"]
             except:
-                return 'Incorrect email or password. Please try again.'
+                #return 'Incorrect email or password. Please try again.'
+                return render_template('incorrect.html')
             
             for listed_account in Accounts.query.all():
                 if account.db_email == listed_account.db_email and account.db_website == listed_account.db_website:
-                    return 'Account already logged in.'
+                    #return 'Account already logged in.'
+                    return render_template('already-exists.html')
             
             db.session.add(account)
             db.session.commit()
@@ -154,11 +159,13 @@ def login():
                 client = Client(base_url='https://bsky.social')
                 client.login(account.db_email, account.db_password)
             except:
-                return 'Incorrect email or password. Please try again.'
+                #return 'Incorrect email or password. Please try again.'
+                return render_template('incorrect.html')
             
             for listed_account in Accounts.query.all():
                 if account.db_email == listed_account.db_email and account.db_website == listed_account.db_website:
-                    return 'Account already logged in.'
+                    #return 'Account already logged in.'
+                    return render_template('already-exists.html')
             
             db.session.add(account)
             db.session.commit()
