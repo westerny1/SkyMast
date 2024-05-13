@@ -61,7 +61,7 @@
         <div class="container">
             <span class="container-text">Accounts</span>
             {% for account in account_list %}
-            <div class="account-btn" onclick="toggleIconAcct()">
+            <div class="account-btn" onclick="toggleIconAcct({{ account.id }})">
                 <span class="account-type-icon">
 
                     <!-- Icon depends on the account's website/type -->
@@ -80,22 +80,22 @@
              
 
                 <span class="toggle-btn">
-                    <img src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                    <img id="toggle{{ account.id }}" src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
                 </span>
                 <button id="del_account{{ account.id }}" name="del_account{{ account.id }}" type="submit" style="display: flex; justify-content: center; align-items: center; background: url('static/delete.svg') no-repeat center center; background-size: contain; border: none; width: 21px; height: 21px; cursor: pointer; margin: 15px 10px;">
                 </button>
             </div>
-            <ul class="acct-settings">
-                <li class="setting" onclick="toggleIconPub()">
+            <ul id="settings{{ account.id }}" class="acct-settings">
+                <li class="setting" onclick="toggleIconPub({{ account.id }})">
                     <span class="setting-text">Public</span>
                     <span class="setting-togglePub">
-                        <img src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                        <img id="togglePub{{ account.id }}" src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
                     </span>
                 </li>
-                <li class="setting" onclick="toggleIconRep()">
+                <li class="setting" onclick="toggleIconRep({{ account.id }})">
                     <span class="setting-text">Allow Replies</span>
                     <span class="setting-toggleRep">
-                        <img src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                        <img id="toggleRep{{ account.id }}" src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
                     </span>
                 </li>
             </ul>
