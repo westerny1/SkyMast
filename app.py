@@ -20,6 +20,8 @@ class Accounts(db.Model):
     db_password = db.Column(db.String(200), nullable=False)
     db_website = db.Column(db.String(200))
     date_created = db.Column(db.DateTime, default=datetime.now)
+    db_willpost = db.Column(db.Boolean, server_default="true")
+    db_visibility = db.Column(db.String(200))
     # db_username = db.Column(db.String(200), nullable=False)
 
     def __repr__(self):
@@ -51,6 +53,8 @@ def cross_post():
                         img_bytes = f.read()
                     img_bytes_list.append(img_bytes)
             for account in Accounts.query.all():
+                if not account.db_willpost:
+                    continue
                 if account.db_website == 'mastodon':
                     try:
                         # create an application
@@ -74,9 +78,9 @@ def cross_post():
                         mastodon = Mastodon(access_token = 'pytooter_usercred.secret')
                         
                         if imglist[0].filename != '':
-                            mastodon.status_post(post_text, media_ids=[mastodon.media_post(os.path.join(os.getcwd(),'UPLOAD_FOLDER',img.filename) )for img in imglist[:4]])
+                            mastodon.status_post(post_text, media_ids=[mastodon.media_post(os.path.join(os.getcwd(),'UPLOAD_FOLDER',img.filename) )for img in imglist[:4]], visibility=account.db_visibility)
                         elif post_text != "":
-                            mastodon.toot(post_text)
+                            mastodon.status_post(post_text, visibility=account.db_visibility)
                         else:
                             return 'There was an issue in posting in mastodon'
                         print('posted text in mastodon')
@@ -112,7 +116,7 @@ def login():
         # add mastodon account  
         if "mastodon_login" in request.form and email != '' and password != '':
             print("mastodon login")
-            account = Accounts(db_email = email, db_password = password, db_website = "mastodon")
+            account = Accounts(db_email = email, db_password = password, db_website = "mastodon", db_visibility = "public")
             try:
                 # create an application
                 Mastodon.create_app(
@@ -170,7 +174,20 @@ def accounts():
             if "del_account{}".format(account.id) in request.form:
                 db.session.delete(account)
                 db.session.commit()
-                # return redirect('/')
+
+            elif "account-btn{}".format(account.id) in request.form:
+                if account.db_willpost == True:
+                    account.db_willpost = False
+                else:
+                    account.db_willpost = True
+                db.session.commit()
+                
+            elif "public-btn{}".format(account.id) in request.form:
+                if account.db_visibility == "public":
+                    account.db_visibility = "private"
+                else:
+                    account.db_visibility = "public"
+                db.session.commit()
         else:
             return redirect('/')
 

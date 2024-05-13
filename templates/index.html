@@ -61,7 +61,10 @@
         <div class="container">
             <span class="container-text">Accounts</span>
             {% for account in account_list %}
-            <div class="account-btn" onclick="toggleIconAcct({{ account.id }})">
+            <button id="account-btn{{ account.id }}" name="account-btn{{ account.id }}" type="submit" style="display:none;"></button>
+            <label for="account-btn{{ account.id }}">
+            <!-- <div class="account-btn" onclick="toggleIconAcct({{ account.id }})"> -->
+            <div class="account-btn">
                 <span class="account-type-icon">
 
                     <!-- Icon depends on the account's website/type -->
@@ -80,27 +83,36 @@
              
 
                 <span class="toggle-btn">
-                    <img id="toggle{{ account.id }}" src="static/toggle-on.svg" alt="Toggle on Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                    
+                    <img id="toggle{{ account.id }}"
+                        {% if account.db_willpost %} 
+                        src="static/toggle-on.svg" alt="Toggle on Icon"
+                        {% else %}
+                        src="static/toggle-off.svg" alt="Toggle off Icon"
+                        {% endif %}
+                        style="width: 30px; height: 30px; margin-top: 0px;">
+                    
                 </span>
                 <button id="del_account{{ account.id }}" name="del_account{{ account.id }}" type="submit" style="display: flex; justify-content: center; align-items: center; background: url('static/delete.svg') no-repeat center center; background-size: contain; border: none; width: 21px; height: 21px; cursor: pointer; margin: 15px 10px;">
                 </button>
-            </div>
-            <ul id="settings{{ account.id }}" class="acct-settings">
-                {% if account.db_website == 'mastodon' %}
-                    <li class="setting" onclick="toggleIconPub({{ account.id }})">
+            </div></label>
+            <ul id="settings{{ account.id }}" class="acct-settings" {% if account.db_willpost and account.db_website == 'mastodon' %} style="display: block;" {% else %} style="display: none;"{% endif %}>
+                <button id="public-btn{{ account.id }}" name="public-btn{{ account.id }}" type="submit" style="display:none;"></button>
+                <label for="public-btn{{ account.id }}">
+                    <li class="setting">
                         <span class="setting-text">Public</span>
                         <span class="setting-togglePub">
-                            <img id="togglePub{{ account.id }}" src="static/toggle-on.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                            <img id="togglePub{{ account.id }}"
+                            {% if account.db_visibility == "public" %}
+                            src="static/toggle-on.svg" alt="Toggle on Icon"
+                            {% else %}
+                            src="static/toggle-off.svg" alt="Toggle off Icon"
+                            {% endif %}
+                            style="width: 30px; height: 30px; margin-top: 0px;">
+                            
                         </span>
                     </li>
-                {% else %}
-                    <li class="setting" onclick="toggleIconRep({{ account.id }})">
-                        <span class="setting-text">Allow Replies</span>
-                        <span class="setting-toggleRep">
-                            <img id="toggleRep{{ account.id }}" src="static/toggle-on.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
-                        </span>
-                    </li>
-                {% endif %}
+                </label>
             </ul>
             {% endfor %}
         </div></form>
