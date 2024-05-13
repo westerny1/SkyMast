@@ -80,24 +80,27 @@
              
 
                 <span class="toggle-btn">
-                    <img id="toggle{{ account.id }}" src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                    <img id="toggle{{ account.id }}" src="static/toggle-on.svg" alt="Toggle on Icon" style="width: 30px; height: 30px; margin-top: 0px;">
                 </span>
                 <button id="del_account{{ account.id }}" name="del_account{{ account.id }}" type="submit" style="display: flex; justify-content: center; align-items: center; background: url('static/delete.svg') no-repeat center center; background-size: contain; border: none; width: 21px; height: 21px; cursor: pointer; margin: 15px 10px;">
                 </button>
             </div>
             <ul id="settings{{ account.id }}" class="acct-settings">
-                <li class="setting" onclick="toggleIconPub({{ account.id }})">
-                    <span class="setting-text">Public</span>
-                    <span class="setting-togglePub">
-                        <img id="togglePub{{ account.id }}" src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
-                    </span>
-                </li>
-                <li class="setting" onclick="toggleIconRep({{ account.id }})">
-                    <span class="setting-text">Allow Replies</span>
-                    <span class="setting-toggleRep">
-                        <img id="toggleRep{{ account.id }}" src="static/toggle-off.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
-                    </span>
-                </li>
+                {% if account.db_website == 'mastodon' %}
+                    <li class="setting" onclick="toggleIconPub({{ account.id }})">
+                        <span class="setting-text">Public</span>
+                        <span class="setting-togglePub">
+                            <img id="togglePub{{ account.id }}" src="static/toggle-on.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                        </span>
+                    </li>
+                {% else %}
+                    <li class="setting" onclick="toggleIconRep({{ account.id }})">
+                        <span class="setting-text">Allow Replies</span>
+                        <span class="setting-toggleRep">
+                            <img id="toggleRep{{ account.id }}" src="static/toggle-on.svg" alt="Toggle off Icon" style="width: 30px; height: 30px; margin-top: 0px;">
+                        </span>
+                    </li>
+                {% endif %}
             </ul>
             {% endfor %}
         </div></form>
