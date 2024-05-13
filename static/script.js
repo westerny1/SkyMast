@@ -125,3 +125,21 @@ function copyContent () {
 //   return true;
 // }
 
+//EDITED
+//responsive
+window.addEventListener('load', function() {
+  adjustPadding();
+});
+
+window.addEventListener('resize', function() {
+  adjustPadding();
+});
+
+function adjustPadding() {
+  const headerHeight = document.querySelector('header').offsetHeight;
+  const bottomButtonHeight = document.querySelector('.bottom-button').offsetHeight;
+  const totalHeight = headerHeight + bottomButtonHeight;
+  document.body.style.paddingTop = headerHeight + 'px';
+  document.body.style.paddingBottom = bottomButtonHeight + 'px';
+}
+
