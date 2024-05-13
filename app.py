@@ -74,7 +74,7 @@ def cross_post():
                         mastodon = Mastodon(access_token = 'pytooter_usercred.secret')
                         
                         if imglist[0].filename != '':
-                            mastodon.status_post(post_text, media_ids=[mastodon.media_post(os.getcwd()+'\\UPLOAD_FOLDER\\'+img.filename) for img in imglist[:4]])
+                            mastodon.status_post(post_text, media_ids=[mastodon.media_post(os.path.join(os.getcwd(),'UPLOAD_FOLDER',img.filename) )for img in imglist[:4]])
                         elif post_text != "":
                             mastodon.toot(post_text)
                         else:
