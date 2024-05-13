@@ -27,6 +27,7 @@
             <img id="img-preview2" style="display:none;"/>
             <img id="img-preview3" style="display:none;"/>
             <img id="img-preview4" style="display:none;"/>
+            <div id="img-limit-message"style="display:none;">*only up to 4 images can be posted.</div>
         </div>
         <textarea id="post-text" name="post-text" style="display:none;"></textarea> 
         <!-- <img id="img-preview1" style="display:none;"/> -->
@@ -40,6 +41,9 @@
             document.getElementById('img-preview3').style = 'width: 50px; height: 50px;';
             document.getElementById('img-preview4').src = window.URL.createObjectURL(this.files[3]);
             document.getElementById('img-preview4').style = 'width: 50px; height: 50px;';
+            if (this.files.length > 4) {
+                document.getElementById('img-limit-message').style = '';
+            }
             "/>
         <div class="bottom">
             <label for="img">

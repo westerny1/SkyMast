@@ -20,6 +20,7 @@ class Accounts(db.Model):
     db_password = db.Column(db.String(200), nullable=False)
     db_website = db.Column(db.String(200))
     date_created = db.Column(db.DateTime, default=datetime.now)
+    # db_username = db.Column(db.String(200), nullable=False)
 
     def __repr__(self):
         return '<Account %r>' % self.id
@@ -44,7 +45,7 @@ def cross_post():
         if (post_text != "" or imglist != []) and "post-to" in request.form:
             img_bytes_list = []
             if imglist[0].filename != '':     
-                for img in imglist:
+                for img in imglist[:4]:
                     img.save(os.path.join(app.config['UPLOAD_FOLDER'], img.filename))
                     with open(os.getcwd()+'\\temp_img\\'+img.filename, "rb") as f:
                         img_bytes = f.read()
@@ -73,7 +74,7 @@ def cross_post():
                         mastodon = Mastodon(access_token = 'pytooter_usercred.secret')
                         
                         if imglist[0].filename != '':
-                            mastodon.status_post(post_text, media_ids=[mastodon.media_post(os.getcwd()+'\\temp_img\\'+img.filename) for img in imglist])
+                            mastodon.status_post(post_text, media_ids=[mastodon.media_post(os.getcwd()+'\\temp_img\\'+img.filename) for img in imglist[:4]])
                         elif post_text != "":
                             mastodon.toot(post_text)
                         else:
@@ -127,11 +128,15 @@ def login():
                     account.db_password, 
                     to_file = 'pytooter_usercred.secret'
                 )
+
+                # account.db_username = mastodon.account_verify_credentials()["username"]
             except:
                 return 'Incorrect email or password. Please try again.'
+            
             for listed_account in Accounts.query.all():
                 if account.db_email == listed_account.db_email and account.db_website == listed_account.db_website:
                     return 'Account already logged in.'
+            
             db.session.add(account)
             db.session.commit()
             return redirect('/')
@@ -146,9 +151,11 @@ def login():
                 client.login(account.db_email, account.db_password)
             except:
                 return 'Incorrect email or password. Please try again.'
+            
             for listed_account in Accounts.query.all():
                 if account.db_email == listed_account.db_email and account.db_website == listed_account.db_website:
                     return 'Account already logged in.'
+            
             db.session.add(account)
             db.session.commit()
             return redirect('/')
@@ -163,7 +170,7 @@ def accounts():
             if "del_account{}".format(account.id) in request.form:
                 db.session.delete(account)
                 db.session.commit()
-                return redirect('/')
+                # return redirect('/')
         else:
             return redirect('/')
 
