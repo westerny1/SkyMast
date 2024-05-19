@@ -1,8 +1,8 @@
 # Design and Development of SkyMast: Software for Cross-posting to Mastodon and Bluesky
-In partial fulfillment for CS 173: Software Engineering 3 at the University of the Philippines, Diliman.
-<br>
+<be>
 <br>
 by Dean Carlo Ramirez, Ethan Joshua Camingao, Jakin Bacalla, Jhn Joven Juanes, and Victor Dominic Naraval
+In partial fulfillment for CS 173: Software Engineering 3 at the University of the Philippines, Diliman.
 
 ## Web Application
 We built the web application **SkyMast** using Flask, CSS, HTML, and Javascript. You can access it !**[here](https://skymast.onrender.com/)**. Below are some screenshots of the website.
