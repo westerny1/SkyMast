@@ -1,7 +1,7 @@
 # Design and Development of SkyMast: Software for Cross-posting to Mastodon and Bluesky
-<be>
+*by Dean Carlo Ramirez, Ethan Joshua Camingao, Jakin Bacalla, Jhn Joven Juanes, and Victor Dominic Naraval*
 <br>
-by Dean Carlo Ramirez, Ethan Joshua Camingao, Jakin Bacalla, Jhn Joven Juanes, and Victor Dominic Naraval
+<br>
 In partial fulfillment for CS 173: Software Engineering 3 at the University of the Philippines, Diliman.
 
 ## Web Application
