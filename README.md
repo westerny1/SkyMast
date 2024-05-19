@@ -2,13 +2,13 @@
 In partial fulfillment for CS 173: Software Engineering 3 at the University of the Philippines, Diliman.
 <br>
 <br>
-by Dean Carlo Ramirez, Ethan Joshua Camingao, Jakin Cometa, Bacalla, Jhn Joven Juanes, and Victor Dominic Naraval
+by Dean Carlo Ramirez, Ethan Joshua Camingao, Jakin Bacalla, Jhn Joven Juanes, and Victor Dominic Naraval
 
 ## Web Application
 We built the web application **SkyMast** using Flask, CSS, HTML, and Javascript. You can access it !**[here](https://skymast.onrender.com/)**. Below are some screenshots of the website.
-![Homepage]()
+![Homepage](https://github.com/westerny1/SkyMast/blob/d0532df476e549fa7bd2cdabf2230e4b080eb9b6/static/screenshots/main%20screen.png)
 *Homepage*
-![Login]()
+![Login](https://github.com/westerny1/SkyMast/blob/d0532df476e549fa7bd2cdabf2230e4b080eb9b6/static/screenshots/login%20page.png)
 *Login page*
 
 ## Rationale
